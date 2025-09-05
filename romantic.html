@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi Anuradha 💖</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+        overflow: hidden;
+    }
+    h1 {
+        color: #fff;
+        font-size: 2.8em;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 8px #ff6f91;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: .15em solid #fff;
+        animation: typing 3s steps(30, end), blink .75s step-end infinite;
+    }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink { from, to { border-color: transparent } 50% { border-color: white } }
+
+    button {
+        padding: 15px 30px;
+        font-size: 1.5em;
+        border: none;
+        border-radius: 10px;
+        background: #ff6f91;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0 10px;
+    }
+    button:hover { transform: scale(1.1); background: #ff3c6e; }
+
+    .heart {
+        position: absolute;
+        color: red;
+        font-size: 24px;
+        animation: float 4s linear infinite;
+        user-select: none;
+    }
+    @keyframes float { 0% { transform: translateY(100vh) scale(1); opacity: 1; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
+
+    .loveMessage {
+        position: absolute;
+        color: pink;
+        font-size: 24px;
+        font-weight: bold;
+        animation: floatMsg 3s linear forwards;
+        user-select: none;
+    }
+    @keyframes floatMsg { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-200px); } }
+
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        opacity: 0.7;
+        pointer-events: none;
+        animation: confettiFall 3s linear forwards;
+    }
+    @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+
+    /* Mini popup */
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 300px;
+        background: #fff;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        text-align: center;
+        transition: transform 0.5s ease;
+        z-index: 9999;
+    }
+    .popup.show { transform: translate(-50%, -50%) scale(1); }
+    .popup img { width: 100%; border-radius: 15px; }
+    .popup button { margin-top: 15px; background: #ff6f91; color: white; }
+</style>
+</head>
+<body>
+    <div>
+        <h1 id="mainText">Hi Anuradha 💖 Do you love me?</h1>
+        <button id="yesBtn">Yes 😍</button>
+        <button id="noBtn">No 😢</button>
+    </div>
+
+    <!-- Mini surprise popup -->
+    <div class="popup" id="popup">
+        <img src="assets/love.gif" alt="Love GIF">
+        <p>Surprise! I ❤️ you forever!</p>
+        <button id="closePopup">Close 💖</button>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="assets/romantic.mp3" type="audio/mpeg">
+    </audio>
+
+<script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    const popup = document.getElementById('popup');
+    const closePopup = document.getElementById('closePopup');
+
+    // Play music on first click
+    document.body.addEventListener('click', () => { bgMusic.play(); }, { once: true });
+
+    // Yes button click
+    yesBtn.addEventListener('click', () => {
+        alert("Yay! I love you too 💕");
+        document.body.style.background = "linear-gradient(to bottom, #ffecd2, #fcb69f)";
+        startHearts();
+        startLoveMessages();
+        startConfetti();
+        popup.classList.add('show');
+    });
+
+    // Close popup
+    closePopup.addEventListener('click', () => { popup.classList.remove('show'); });
+
+    // No button hover
+    noBtn.addEventListener('mouseover', () => {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+        noBtn.style.position = "absolute";
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    });
+
+    // Falling hearts
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.fontSize = (15 + Math.random() * 25) + 'px';
+        heart.innerHTML = '💖';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }
+    function startHearts() { setInterval(createHeart, 300); }
+
+    // Floating love messages
+    const messages = ["I love you 💕", "You are my world 🌏", "Forever yours ❤️"];
+    function createLoveMessage() {
+        const msg = document.createElement('div');
+        msg.className = 'loveMessage';
+        msg.style.left = Math.random() * window.innerWidth + 'px';
+        msg.innerText = messages[Math.floor(Math.random() * messages.length)];
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 3000);
+    }
+    function startLoveMessages() { setInterval(createLoveMessage, 500); }
+
+    // Confetti effect
+    function createConfetti() {
+        const conf = document.createElement('div');
+        conf.className = 'confetti';
+        conf.style.left = Math.random() * window.innerWidth + 'px';
+        conf.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+        conf.style.width = conf.style.height = (5 + Math.random()*10) + 'px';
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 3000);
+    }
+    function startConfetti() { setInterval(createConfetti, 100); }
+</script>
+</body>
+</html>
