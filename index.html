@@ -22,9 +22,9 @@
         font-size: 2.8em;
         margin-bottom: 30px;
         text-shadow: 2px 2px 8px #ff6f91;
-        white-space: nowrap;
-        overflow: hidden;
-        border-right: .15em solid #fff;
+        /* इन दो लाइनों को हटा दिया गया है */
+        /* white-space: nowrap; */
+        /* overflow: hidden; */
         animation: typing 3s steps(30, end), blink .75s step-end infinite;
     }
     @keyframes typing { from { width: 0 } to { width: 100% } }
@@ -91,6 +91,14 @@
     .popup.show { transform: translate(-50%, -50%) scale(1); }
     .popup img { width: 100%; border-radius: 15px; }
     .popup button { margin-top: 15px; background: #ff6f91; color: white; }
+
+    /* मोबाइल के लिए फ़ॉन्ट साइज़ कम करें */
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 1.8em; /* छोटी स्क्रीन के लिए फ़ॉन्ट साइज़ कम */
+            word-wrap: break-word; /* लंबा शब्द अगली लाइन में */
+        }
+    }
 </style>
 </head>
 <body>
@@ -100,7 +108,6 @@
         <button id="noBtn">No 😢</button>
     </div>
 
-    <!-- Mini surprise popup -->
     <div class="popup" id="popup">
         <img src="love.gif" alt="Love GIF">
         <p>Surprise! I ❤️ you forever!</p>
